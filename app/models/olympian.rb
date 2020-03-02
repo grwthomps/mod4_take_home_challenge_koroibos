@@ -1,0 +1,2 @@
+class Olympian < ApplicationRecord
+end
