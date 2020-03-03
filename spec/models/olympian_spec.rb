@@ -87,5 +87,9 @@ RSpec.describe Olympian, type: :model do
       expect(Olympian.oldest).to eq(@benjamin)
     end
 
+    it "can calculate total competing olympians" do
+      expect(Olympian.total_competing).to eq(4)
+    end
+
   end
 end
