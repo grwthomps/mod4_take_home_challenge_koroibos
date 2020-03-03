@@ -27,4 +27,16 @@ class Olympian < ApplicationRecord
   def self.oldest
     order(:age).reverse_order.limit(1).first
   end
+
+  def self.total_competing
+    all.count
+  end
+
+  def self.average_weight(sex)
+    where(sex: sex).average(:weight).to_f.round(1)
+  end
+
+  def self.average_age
+    average(:age).to_f.round(1)
+  end
 end
