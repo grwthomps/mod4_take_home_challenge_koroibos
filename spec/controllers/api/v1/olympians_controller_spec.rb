@@ -135,7 +135,7 @@ RSpec.describe Api::V1::OlympiansController, type: :controller do
     OlympianEvent.create(olympian_id: jennifer.id, event_id: fencing_event.id, medal: "Silver")
   end
 
-  describe "get all olympians route", :type => :request do
+  describe "get all olympians", :type => :request do
     before(:each) do
       get '/api/v1/olympians'
     end
@@ -158,6 +158,50 @@ RSpec.describe Api::V1::OlympiansController, type: :controller do
       expect(JSON.parse(response.body)["olympians"].first["sex"]).to be_nil
       expect(JSON.parse(response.body)["olympians"].first["height"]).to be_nil
       expect(JSON.parse(response.body)["olympians"].first["weight"]).to be_nil
+    end
+  end
+
+  describe "get youngest olympian by passing age paramater", :type => :request do
+    before(:each) do
+      get '/api/v1/olympians?age=youngest'
+    end
+
+    it 'returns status code 200' do
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'does not return multiple olympians' do
+      expect(JSON.parse(response.body)["olympians"].size).to eq(1)
+    end
+
+    it 'returns youngest olympian' do
+      expect(JSON.parse(response.body)["olympians"].first["name"]).to eq("Dorothy Tucker")
+      expect(JSON.parse(response.body)["olympians"].first["team"]).to eq("Egypt")
+      expect(JSON.parse(response.body)["olympians"].first["age"]).to eq(18)
+      expect(JSON.parse(response.body)["olympians"].first["sport"]).to eq("Golf")
+      expect(JSON.parse(response.body)["olympians"].first["total_medals_won"]).to eq(1)
+    end
+  end
+
+  describe "get oldest olympian by passing age paramater", :type => :request do
+    before(:each) do
+      get '/api/v1/olympians?age=oldest'
+    end
+
+    it 'returns status code 200' do
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'does not return multiple olympians' do
+      expect(JSON.parse(response.body)["olympians"].size).to eq(1)
+    end
+
+    it 'returns youngest olympian' do
+      expect(JSON.parse(response.body)["olympians"].first["name"]).to eq("Jennifer Mcvay")
+      expect(JSON.parse(response.body)["olympians"].first["team"]).to eq("Botswana")
+      expect(JSON.parse(response.body)["olympians"].first["age"]).to eq(30)
+      expect(JSON.parse(response.body)["olympians"].first["sport"]).to eq("Fencing")
+      expect(JSON.parse(response.body)["olympians"].first["total_medals_won"]).to eq(1)
     end
   end
 end
