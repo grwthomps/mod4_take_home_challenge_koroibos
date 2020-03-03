@@ -15,4 +15,8 @@ class Olympian < ApplicationRecord
   validates_numericality_of :age
   validates_numericality_of :height
   validates_numericality_of :weight
+
+  def total_medals_won
+    OlympianEvent.where(olympian_id: self.id).where.not(medal: "NA").count
+  end
 end
