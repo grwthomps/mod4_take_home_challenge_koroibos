@@ -45,6 +45,26 @@ RSpec.describe Olympian, type: :model do
         sport_id: gymnastics.id
       )
 
+      freddie = Olympian.create(
+        name: "Freddie Sanders",
+        sex: "M",
+        age: 23,
+        weight: 80,
+        height: 169,
+        team_id: egypt.id,
+        sport_id: golf.id
+      )
+
+      @benjamin = Olympian.create(
+        name: "Benjamin Johnston",
+        sex: "M",
+        age: 25,
+        weight: 68,
+        height: 144,
+        team_id: vietnam.id,
+        sport_id: gymnastics.id
+      )
+
       golf_event = Event.create!(name: "Golf Event", sport_id: golf.id)
       golf_event_2 = Event.create!(name: "Golf Event 2", sport_id: golf.id)
       gymnastics_event = Event.create!(name: "Gymnastics Event", sport_id: gymnastics.id)
@@ -58,5 +78,14 @@ RSpec.describe Olympian, type: :model do
       expect(@dorothy.total_medals_won).to eq(1)
       expect(@cheyenne.total_medals_won).to eq(0)
     end
+
+    it "can calculate youngest olympian" do
+      expect(Olympian.youngest).to eq(@dorothy)
+    end
+
+    it "can calculate oldest olympian" do
+      expect(Olympian.oldest).to eq(@benjamin)
+    end
+
   end
 end
