@@ -5,5 +5,7 @@ FactoryBot.define do
     age { 1 }
     height { 1 }
     weight { 1 }
+    team { nil }
+    sport { nil }
   end
 end
