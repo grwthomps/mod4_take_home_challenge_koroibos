@@ -3,4 +3,7 @@ class Event < ApplicationRecord
 
   has_many :olympian_events
   has_many :olympians, through: :olympian_events
+
+  validates_presence_of :name
+  validates_uniqueness_of :name
 end

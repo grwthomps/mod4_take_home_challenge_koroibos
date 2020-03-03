@@ -4,4 +4,15 @@ class Olympian < ApplicationRecord
 
   has_many :olympian_events
   has_many :events, through: :olympian_events
+
+  validates_presence_of :name,
+                        :sex,
+                        :age,
+                        :height,
+                        :weight
+
+  validates_uniqueness_of :name
+  validates_numericality_of :age
+  validates_numericality_of :height
+  validates_numericality_of :weight
 end
