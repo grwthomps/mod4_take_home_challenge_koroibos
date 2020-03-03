@@ -5,10 +5,5 @@ FactoryBot.define do
     age { 1 }
     height { 1 }
     weight { 1 }
-    team { "MyString" }
-    games { "MyString" }
-    sport { "MyString" }
-    event { "MyString" }
-    medal { "MyString" }
   end
 end
