@@ -2,7 +2,7 @@ class CreateOlympians < ActiveRecord::Migration[5.2]
   def change
     create_table :olympians do |t|
       t.string :name
-      t.string :sex
+      t.string :sex, limit: 1
       t.integer :age
       t.integer :height
       t.integer :weight
