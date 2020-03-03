@@ -91,5 +91,13 @@ RSpec.describe Olympian, type: :model do
       expect(Olympian.total_competing).to eq(4)
     end
 
+    it "can calculate average olympian weights" do
+      expect(Olympian.average_weight("M")).to eq(74.0)
+      expect(Olympian.average_weight("F")).to eq(59.5)
+    end
+
+    it "can calculate average olympian age" do
+      expect(Olympian.average_age).to eq(22.0)
+    end
   end
 end
