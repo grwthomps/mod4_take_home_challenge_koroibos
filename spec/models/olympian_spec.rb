@@ -16,4 +16,47 @@ RSpec.describe Olympian, type: :model do
     it { should validate_presence_of(:weight) }
     it { should validate_numericality_of(:weight) }
   end
+
+  describe 'methods' do
+    before(:each) do
+      egypt = Team.create!(country: "Egypt")
+      vietnam = Team.create!(country: "Vietnam")
+
+      golf = Sport.create!(name: "Golf")
+      gymnastics = Sport.create!(name: "Gymnastics")
+
+      @dorothy = Olympian.create!(
+        name: "Dorothy Tucker",
+        sex: "F",
+        age: 18,
+        weight: 48,
+        height: 158,
+        team_id: egypt.id,
+        sport_id: golf.id
+      )
+
+      @cheyenne = Olympian.create!(
+        name: "Cheyenne Song",
+        sex: "F",
+        age: 22,
+        weight: 71,
+        height: 157,
+        team_id: vietnam.id,
+        sport_id: gymnastics.id
+      )
+
+      golf_event = Event.create!(name: "Golf Event", sport_id: golf.id)
+      golf_event_2 = Event.create!(name: "Golf Event 2", sport_id: golf.id)
+      gymnastics_event = Event.create!(name: "Gymnastics Event", sport_id: gymnastics.id)
+
+      OlympianEvent.create!(olympian_id: @dorothy.id, event_id: golf_event.id, medal: "Bronze")
+      OlympianEvent.create!(olympian_id: @dorothy.id, event_id: golf_event_2.id, medal: "NA")
+      OlympianEvent.create!(olympian_id: @cheyenne.id, event_id: gymnastics_event.id, medal: "NA")
+    end
+
+    it "can calculate total medals won" do
+      expect(@dorothy.total_medals_won).to eq(1)
+      expect(@cheyenne.total_medals_won).to eq(0)
+    end
+  end
 end
