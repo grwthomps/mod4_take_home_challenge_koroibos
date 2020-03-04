@@ -209,7 +209,7 @@ Sample Response:
 ```
 
 ### Database Schema
-![]()
+![](https://github.com/grwthomps/mod4_take_home_challenge_koroibos/blob/12-create-readme/koroibos_schema.png)
 
 ## Project Board
 
