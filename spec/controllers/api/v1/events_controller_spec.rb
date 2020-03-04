@@ -21,7 +21,9 @@ RSpec.describe Api::V1::EventsController, type: :controller do
       end
 
       it 'returns all events' do
-        expect(JSON.parse(response.body)["events"].size).to eq(4)
+        parsed_response = JSON.parse(response.body)
+
+        expect(parsed_response["events"].size).to eq(4)
       end
 
       it 'returns status code 200' do
@@ -29,19 +31,21 @@ RSpec.describe Api::V1::EventsController, type: :controller do
       end
 
       it 'has the correct events in the correct order' do
-        expect(JSON.parse(response.body)["events"][0]["sport"]).to eq("Fencing")
-        expect(JSON.parse(response.body)["events"][0]["events"][0]).to eq("First Fencing Event")
-        expect(JSON.parse(response.body)["events"][0]["events"][1]).to eq("Second Fencing Event")
+        parsed_response = JSON.parse(response.body)
 
-        expect(JSON.parse(response.body)["events"][1]["sport"]).to eq("Golf")
-        expect(JSON.parse(response.body)["events"][1]["events"][0]).to eq("First Golf Event")
-        expect(JSON.parse(response.body)["events"][1]["events"][1]).to eq("Second Golf Event")
+        expect(parsed_response["events"][0]["sport"]).to eq("Fencing")
+        expect(parsed_response["events"][0]["events"][0]).to eq("First Fencing Event")
+        expect(parsed_response["events"][0]["events"][1]).to eq("Second Fencing Event")
 
-        expect(JSON.parse(response.body)["events"][2]["sport"]).to eq("Gymnastics")
-        expect(JSON.parse(response.body)["events"][2]["events"].count).to eq(0)
+        expect(parsed_response["events"][1]["sport"]).to eq("Golf")
+        expect(parsed_response["events"][1]["events"][0]).to eq("First Golf Event")
+        expect(parsed_response["events"][1]["events"][1]).to eq("Second Golf Event")
 
-        expect(JSON.parse(response.body)["events"][3]["sport"]).to eq("Weightlifting")
-        expect(JSON.parse(response.body)["events"][3]["events"][0]).to eq("Weightlifting Event")
+        expect(parsed_response["events"][2]["sport"]).to eq("Gymnastics")
+        expect(parsed_response["events"][2]["events"].count).to eq(0)
+
+        expect(parsed_response["events"][3]["sport"]).to eq("Weightlifting")
+        expect(parsed_response["events"][3]["events"][0]).to eq("Weightlifting Event")
       end
     end
   end
@@ -113,35 +117,38 @@ RSpec.describe Api::V1::EventsController, type: :controller do
 
       it 'returns event and all medalists' do
         get "/api/v1/events/#{@golf_event.id}/medalists"
+        parsed_response = JSON.parse(response.body)
 
-        expect(JSON.parse(response.body)["event"]).to eq("Golf Event")
-        expect(JSON.parse(response.body)["medalists"].size).to eq(3)
+        expect(parsed_response["event"]).to eq("Golf Event")
+        expect(parsed_response["medalists"].size).to eq(3)
       end
 
       it 'has the correct medalists in the correct order' do
         get "/api/v1/events/#{@golf_event.id}/medalists"
+        parsed_response = JSON.parse(response.body)
 
-        expect(JSON.parse(response.body)["medalists"][0]["name"]).not_to be_nil
-        expect(JSON.parse(response.body)["medalists"][0]["team"]).not_to be_nil
-        expect(JSON.parse(response.body)["medalists"][0]["age"]).not_to be_nil
-        expect(JSON.parse(response.body)["medalists"][0]["medal"]).not_to be_nil
+        expect(parsed_response["medalists"][0]["name"]).not_to be_nil
+        expect(parsed_response["medalists"][0]["team"]).not_to be_nil
+        expect(parsed_response["medalists"][0]["age"]).not_to be_nil
+        expect(parsed_response["medalists"][0]["medal"]).not_to be_nil
 
-        expect(JSON.parse(response.body)["medalists"][1]["name"]).not_to be_nil
-        expect(JSON.parse(response.body)["medalists"][1]["team"]).not_to be_nil
-        expect(JSON.parse(response.body)["medalists"][1]["age"]).not_to be_nil
-        expect(JSON.parse(response.body)["medalists"][1]["medal"]).not_to be_nil
+        expect(parsed_response["medalists"][1]["name"]).not_to be_nil
+        expect(parsed_response["medalists"][1]["team"]).not_to be_nil
+        expect(parsed_response["medalists"][1]["age"]).not_to be_nil
+        expect(parsed_response["medalists"][1]["medal"]).not_to be_nil
 
-        expect(JSON.parse(response.body)["medalists"][2]["name"]).not_to be_nil
-        expect(JSON.parse(response.body)["medalists"][2]["team"]).not_to be_nil
-        expect(JSON.parse(response.body)["medalists"][2]["age"]).not_to be_nil
-        expect(JSON.parse(response.body)["medalists"][2]["medal"]).not_to be_nil
+        expect(parsed_response["medalists"][2]["name"]).not_to be_nil
+        expect(parsed_response["medalists"][2]["team"]).not_to be_nil
+        expect(parsed_response["medalists"][2]["age"]).not_to be_nil
+        expect(parsed_response["medalists"][2]["medal"]).not_to be_nil
       end
 
       it 'has a response when there are no medalists' do
         get "/api/v1/events/#{@boxing_event.id}/medalists"
+        parsed_response = JSON.parse(response.body)
 
-        expect(JSON.parse(response.body)["event"]).to eq("Boxing Event")
-        expect(JSON.parse(response.body)["medalists"].size).to eq(0)
+        expect(parsed_response["event"]).to eq("Boxing Event")
+        expect(parsed_response["medalists"].size).to eq(0)
       end
     end
   end
