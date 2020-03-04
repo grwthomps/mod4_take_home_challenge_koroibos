@@ -8,6 +8,8 @@ class FormatEvents
     end
   end
 
+  private
+
   def self.get_event_names(sport)
     sport.events.order(:name).map do |event|
       event.name
