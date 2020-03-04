@@ -10,6 +10,12 @@ This repo is meant to emulate a submission for a take home challenge that might 
 - Ruby (2.4.1)
 - PostgreSQL (11.5)
 
+## Production Link
+
+***Note: The Heroku link below is functional, however it is not meant for public use.***
+
+[Heroku Production Link](https://koroibos-mod4.herokuapp.com/)
+
 ## Getting Started
 
 ### Install Necessary Dependencies
@@ -33,7 +39,7 @@ rails db:migrate
 
 ### Importing Data
 
-A custom rake task has been created for importing the olympic CSV data. All data is stored in the `olympians.csv` file in the root directory. The rake task is called `import_olympic_data` and can be found in `/lib/tasks/import_olympic_data.rake`. All existing rake tasks can be seen using `rake -T`. To run the task, use `rake import_olympic_data`. The database will need to be created and migrated prior to running the rake task.
+A custom rake task has been created for importing the olympic CSV data. All data is stored in the `olympians.csv` file in the root directory. The rake task is called `import_olympic_data` and can be found in `/lib/tasks/import_olympic_data.rake`. All existing rake tasks can be seen using `rake -T`. To run the task, use `rake import_olympic_data`. ***The database will need to be created and migrated prior to running the rake task.***
 
 ### Running a Local Server
 
@@ -208,7 +214,7 @@ Sample Response:
 }
 ```
 
-### Database Schema
+## Database Schema
 ![](https://github.com/grwthomps/mod4_take_home_challenge_koroibos/blob/12-create-readme/koroibos_schema.png)
 
 ## Project Board
