@@ -140,24 +140,28 @@ RSpec.describe Api::V1::OlympiansController, type: :controller do
       get '/api/v1/olympians'
     end
 
-    it 'returns all olympians' do
-      expect(JSON.parse(response.body)["olympians"].size).to eq(10)
-    end
-
     it 'returns status code 200' do
       expect(response).to have_http_status(:success)
     end
 
-    it 'has the correct attributes' do
-      expect(JSON.parse(response.body)["olympians"].first["name"]).not_to be_nil
-      expect(JSON.parse(response.body)["olympians"].first["team"]).not_to be_nil
-      expect(JSON.parse(response.body)["olympians"].first["age"]).not_to be_nil
-      expect(JSON.parse(response.body)["olympians"].first["sport"]).not_to be_nil
-      expect(JSON.parse(response.body)["olympians"].first["total_medals_won"]).not_to be_nil
+    it 'returns all olympians' do
+      parsed_response = JSON.parse(response.body)
 
-      expect(JSON.parse(response.body)["olympians"].first["sex"]).to be_nil
-      expect(JSON.parse(response.body)["olympians"].first["height"]).to be_nil
-      expect(JSON.parse(response.body)["olympians"].first["weight"]).to be_nil
+      expect(parsed_response["olympians"].size).to eq(10)
+    end
+
+    it 'has the correct attributes' do
+      parsed_response = JSON.parse(response.body)
+
+      expect(parsed_response["olympians"].first["name"]).not_to be_nil
+      expect(parsed_response["olympians"].first["team"]).not_to be_nil
+      expect(parsed_response["olympians"].first["age"]).not_to be_nil
+      expect(parsed_response["olympians"].first["sport"]).not_to be_nil
+      expect(parsed_response["olympians"].first["total_medals_won"]).not_to be_nil
+
+      expect(parsed_response["olympians"].first["sex"]).to be_nil
+      expect(parsed_response["olympians"].first["height"]).to be_nil
+      expect(parsed_response["olympians"].first["weight"]).to be_nil
     end
   end
 
@@ -171,15 +175,19 @@ RSpec.describe Api::V1::OlympiansController, type: :controller do
     end
 
     it 'does not return multiple olympians' do
-      expect(JSON.parse(response.body)["olympians"].size).to eq(1)
+      parsed_response = JSON.parse(response.body)
+
+      expect(parsed_response["olympians"].size).to eq(1)
     end
 
     it 'returns youngest olympian' do
-      expect(JSON.parse(response.body)["olympians"].first["name"]).to eq("Dorothy Tucker")
-      expect(JSON.parse(response.body)["olympians"].first["team"]).to eq("Egypt")
-      expect(JSON.parse(response.body)["olympians"].first["age"]).to eq(18)
-      expect(JSON.parse(response.body)["olympians"].first["sport"]).to eq("Golf")
-      expect(JSON.parse(response.body)["olympians"].first["total_medals_won"]).to eq(1)
+      parsed_response = JSON.parse(response.body)
+
+      expect(parsed_response["olympians"].first["name"]).to eq("Dorothy Tucker")
+      expect(parsed_response["olympians"].first["team"]).to eq("Egypt")
+      expect(parsed_response["olympians"].first["age"]).to eq(18)
+      expect(parsed_response["olympians"].first["sport"]).to eq("Golf")
+      expect(parsed_response["olympians"].first["total_medals_won"]).to eq(1)
     end
   end
 
@@ -193,15 +201,19 @@ RSpec.describe Api::V1::OlympiansController, type: :controller do
     end
 
     it 'does not return multiple olympians' do
-      expect(JSON.parse(response.body)["olympians"].size).to eq(1)
+      parsed_response = JSON.parse(response.body)
+
+      expect(parsed_response["olympians"].size).to eq(1)
     end
 
     it 'returns youngest olympian' do
-      expect(JSON.parse(response.body)["olympians"].first["name"]).to eq("Jennifer Mcvay")
-      expect(JSON.parse(response.body)["olympians"].first["team"]).to eq("Botswana")
-      expect(JSON.parse(response.body)["olympians"].first["age"]).to eq(30)
-      expect(JSON.parse(response.body)["olympians"].first["sport"]).to eq("Fencing")
-      expect(JSON.parse(response.body)["olympians"].first["total_medals_won"]).to eq(1)
+      parsed_response = JSON.parse(response.body)
+
+      expect(parsed_response["olympians"].first["name"]).to eq("Jennifer Mcvay")
+      expect(parsed_response["olympians"].first["team"]).to eq("Botswana")
+      expect(parsed_response["olympians"].first["age"]).to eq(30)
+      expect(parsed_response["olympians"].first["sport"]).to eq("Fencing")
+      expect(parsed_response["olympians"].first["total_medals_won"]).to eq(1)
     end
   end
 end

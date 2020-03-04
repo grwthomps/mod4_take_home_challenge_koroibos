@@ -72,20 +72,24 @@ RSpec.describe Api::V1::OlympianStatsController, type: :controller do
     end
 
     it 'has all stats present' do
-      expect(JSON.parse(response.body)["olympian_stats"]["total_competing_olympians"]).not_to be_nil
-      expect(JSON.parse(response.body)["olympian_stats"]["average_weight"]).not_to be_nil
-      expect(JSON.parse(response.body)["olympian_stats"]["average_weight"]["unit"]).not_to be_nil
-      expect(JSON.parse(response.body)["olympian_stats"]["average_weight"]["male_olympians"]).not_to be_nil
-      expect(JSON.parse(response.body)["olympian_stats"]["average_weight"]["female_olympians"]).not_to be_nil
-      expect(JSON.parse(response.body)["olympian_stats"]["average_age"]).not_to be_nil
+      parsed_response = JSON.parse(response.body)
+
+      expect(parsed_response["olympian_stats"]["total_competing_olympians"]).not_to be_nil
+      expect(parsed_response["olympian_stats"]["average_weight"]).not_to be_nil
+      expect(parsed_response["olympian_stats"]["average_weight"]["unit"]).not_to be_nil
+      expect(parsed_response["olympian_stats"]["average_weight"]["male_olympians"]).not_to be_nil
+      expect(parsed_response["olympian_stats"]["average_weight"]["female_olympians"]).not_to be_nil
+      expect(parsed_response["olympian_stats"]["average_age"]).not_to be_nil
     end
 
     it 'has correct stats' do
-      expect(JSON.parse(response.body)["olympian_stats"]["total_competing_olympians"]).to eq(5)
-      expect(JSON.parse(response.body)["olympian_stats"]["average_weight"]["unit"]).to eq("kg")
-      expect(JSON.parse(response.body)["olympian_stats"]["average_weight"]["male_olympians"]).to eq(74.0)
-      expect(JSON.parse(response.body)["olympian_stats"]["average_weight"]["female_olympians"]).to eq(57.7)
-      expect(JSON.parse(response.body)["olympian_stats"]["average_age"]).to eq(21.6)
+      parsed_response = JSON.parse(response.body)
+      
+      expect(parsed_response["olympian_stats"]["total_competing_olympians"]).to eq(5)
+      expect(parsed_response["olympian_stats"]["average_weight"]["unit"]).to eq("kg")
+      expect(parsed_response["olympian_stats"]["average_weight"]["male_olympians"]).to eq(74.0)
+      expect(parsed_response["olympian_stats"]["average_weight"]["female_olympians"]).to eq(57.7)
+      expect(parsed_response["olympian_stats"]["average_age"]).to eq(21.6)
     end
   end
 end
